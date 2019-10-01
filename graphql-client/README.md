@@ -71,13 +71,13 @@ the contents of these objects are displayed with the help of loggers.
       }
     }
     ```
+    
 #### Repository
 
-
-- Here we fetch **Repository** information based on the **Owner** along with fetching **Commit** related information.
+- Here we fetch **Repository** information based on the **Owner** along with fetching **Commit** related information
     
-    ```
-    query($owner_name: String!, $repository_name: String!){
+ ``` 
+  query($owner_name: String!, $repository_name: String!){
     	repository(owner: $owner_name, name: $repository_name){
         forkCount
         createdAt
@@ -99,8 +99,8 @@ the contents of these objects are displayed with the help of loggers.
           body
         }
       }
-    }
-    ```
+     }
+  ```
     
 - We define an input through another **json** structure such as below :
     
@@ -187,14 +187,21 @@ printing response data information.
 
 ### CPU and RAM usage information
 
--For this purpose, the JProfiler tool was used which produced results as shown below :
+For this purpose, the JProfiler tool was used which produced results as shown below :
 
 
 - Memory
+
 ![Memory](snapshots/Memory.png)
+
 - Process load
+
 ![ProcessLoad](snapshots/ProcessLoad.png)
+
 - Thread
+
 ![Threads](snapshots/Threads.png)
+
 - Garbage Collection
+
 ![GarbageCollection](snapshots/GarbageCollection.png)
