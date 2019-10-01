@@ -43,11 +43,12 @@ GitHub's endpoint.
 the contents of these objects are displayed with the help of loggers.
 
 
-#### Github models used
+### Github models used
 
-- #### Viewer
+#### Viewer
 
-    This is an example of a simple GraphQL query which fetches the **Viewer** related information from GitHub.
+
+- This is an example of a simple GraphQL query which fetches the **Viewer** related information from GitHub.
 
     ```
     query {
@@ -57,7 +58,8 @@ the contents of these objects are displayed with the help of loggers.
       }
     }
     ```
-    This is the response which is returned in **json** format.
+    
+- This is the response which is returned in **json** format.
     
     ```
     {
@@ -69,9 +71,10 @@ the contents of these objects are displayed with the help of loggers.
       }
     }
     ```
-- #### Repository
+#### Repository
 
-    Here we fetch **Repository** information based on the **Owner** along with fetching **Commit** related information.
+
+- Here we fetch **Repository** information based on the **Owner** along with fetching **Commit** related information.
     
     ```
     query($owner_name: String!, $repository_name: String!){
@@ -99,7 +102,7 @@ the contents of these objects are displayed with the help of loggers.
     }
     ```
     
-    We define an input through another **json** structure such as below :
+- We define an input through another **json** structure such as below :
     
     ```
     {
@@ -108,7 +111,7 @@ the contents of these objects are displayed with the help of loggers.
     }
     ```
     
-    And finally the response :
+- And finally the response :
     
     ```
     {
@@ -162,29 +165,29 @@ the contents of these objects are displayed with the help of loggers.
       }
     }
     ```
-#### Design patterns used
+### Design patterns used
 
-- #####Abstract factory pattern : 
+#### Abstract factory pattern : 
 
 This particular design pattern is used to create instances of the `Viewer` and `Repository` classes which
 are a slicing of the GitHub's schema. The `Datafactory` class which implements the `AbstractFactory` creates
 instances of an implementation of the `Data` - `Viewer` and `Repository` being examples of it.
 
-- #####Observer pattern :
+#### Observer pattern :
 
 This particular design pattern is used by the `QueryLogger` class which is the observer on the subject which is 
 the `QueryExecutor`. Each time a query execution is about to run, `QueryLogger` class observes the subject and 
 logs a message. 
 
-- #####Facade pattern :
+#### Facade pattern :
 
 Here the `GraphQLClientRunner` class behaves as a facade to the `GraphQLClient` class which consists of the 
 deeper details as far as the execution of the application is concerned be it execution of queries or 
 printing response data information.
 
-#### CPU and RAM usage information
+### CPU and RAM usage information
 
-For this purpose, the JProfiler tool was used which produced results as shown below :
+-For this purpose, the JProfiler tool was used which produced results as shown below :
 
 
 - Memory
