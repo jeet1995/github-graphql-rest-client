@@ -26,9 +26,9 @@ The project was developed using the following environment:
 #### Running the application
 
 - Navigate to the module **<parent_project>/graphql-client**  and then execute the following command :-
-```
-sbt clean compile testOnly run
-```
+    ```
+    sbt clean compile testOnly run
+    ```
 
 ### About the application
 
@@ -176,7 +176,7 @@ This particular design pattern is used by the `QueryLogger` class which is the o
 the `QueryExecutor`. Each time a query execution is about to run, `QueryLogger` class observes the subject and 
 logs a message. 
 
-- ####Facade pattern :
+- #####Facade pattern :
 
 Here the `GraphQLClientRunner` class behaves as a facade to the `GraphQLClient` class which consists of the 
 deeper details as far as the execution of the application is concerned be it execution of queries or 
