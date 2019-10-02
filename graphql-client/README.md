@@ -61,18 +61,18 @@ the contents of these objects are displayed with the help of loggers.
 
 - This is an example of a simple GraphQL query which fetches the **Viewer** related information from GitHub.
 
-    ```
+```
     query {
       viewer {
         login
         name
       }
     }
-    ```
+```
     
 - This is the response which is returned in **JSON** format.
     
-    ```
+ ```
     {
       "data": {
         "viewer": {
@@ -81,14 +81,14 @@ the contents of these objects are displayed with the help of loggers.
         }
       }
     }
-    ```
-    
+```
 #### Repository
 
-- Here we fetch **Repository** information based on the **Owner** along with fetching **Commit** related information
+
+- Here we fetch **Repository** information based on the **Owner** along with fetching **Commit** related information.
     
- ``` 
-  query($owner_name: String!, $repository_name: String!){
+ ```
+    query($owner_name: String!, $repository_name: String!){
     	repository(owner: $owner_name, name: $repository_name){
         forkCount
         createdAt
@@ -110,8 +110,8 @@ the contents of these objects are displayed with the help of loggers.
           body
         }
       }
-     }
-  ```
+    }
+ ```
     
 - We define an input through another **JSON** structure such as below for the inputs :
     
@@ -196,6 +196,7 @@ logs a message.
 - This design pattern was chosen as it helps to keep track of the executed queries.
 - In case of multiple subjects executing at the same time, there could be a race condition in the case say we want to report the
 time these subjects started executing. To achieve synchronization in logging would be a challenge with this design pattern.
+
 #### Facade pattern :
 
 - Here the `GraphQLClientRunner` class behaves as a facade to the `GraphQLClient` class which consists of the 
@@ -203,22 +204,17 @@ deeper details as far as the execution of the application is concerned be it exe
 printing response data information.
 - This design pattern hides the deeper implementation details from the end user such as how queries are executed and the response is deserialized.
 - In order to hide the implementation details from the end user we may end up coupling concerns unrelated to each other.
+
+
 ### CPU and RAM usage information
 
 - At different points of the execution, the JProfiler took was used to record key performance indicators snapshots were taken such as below.
 
 - Memory
-
 ![Memory](snapshots/Memory.png)
-
 - Process load
-
 ![ProcessLoad](snapshots/ProcessLoad.png)
-
 - Thread
-
 ![Threads](snapshots/Threads.png)
-
 - Garbage Collection
-
 ![GarbageCollection](snapshots/GarbageCollection.png)
