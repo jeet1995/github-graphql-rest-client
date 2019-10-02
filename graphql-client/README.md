@@ -17,7 +17,14 @@ The project was developed using the following environment:
 
 - **OS:** macOs Mojave 
 - **IDE:** IntelliJ IDEA Ultimate 2018.2
+- **Profiling tools:** JProfiler
+- **Scala version:** 2.12
+- **SBT version:** 1.0
+ 
+#### Assembly details
 
+- Primarily the `build.sbt` file was added to the `graphql-client` where the dependencies along with the Scala and SBT versions used were specified.
+- Then I imported at the project level to include `graphql-client` as an sbt module.
 
 #### Prerequisites
 
@@ -27,9 +34,11 @@ The project was developed using the following environment:
 
 - Navigate to the module **<parent_project>/graphql-client**  and then execute the following command :-
     ```
-    sbt clean compile testOnly run
+    >sbt clean compile test
     ```
-
+    ```
+    >sbt clean compile run
+    ```
 ### About the application
 
 #### Code flow overview
@@ -39,9 +48,11 @@ in the `queries.conf` file.
 - These queries are passed one at a time to the `GithubGraphQLClient` which builds the request object with the 
 help of paramters defined in the `application.conf` file to hit
 GitHub's endpoint.
+- `QueryExecutor` executes queries and returns the response with the help of the `DataFactory`.
+- `DataFactory` creates instances depending on the subtype of the `Data` to be created. This is evaluated with the help of the response JSON object.
 - Once the response objects have been obtained and de-serialized into a instances which implement the `Data` interface,
 the contents of these objects are displayed with the help of loggers.
-
+- Finally the `DataPrintExecutor` prints the list of `Data` responses formed.
 
 ### Github models used
 
@@ -59,7 +70,7 @@ the contents of these objects are displayed with the help of loggers.
     }
     ```
     
-- This is the response which is returned in **json** format.
+- This is the response which is returned in **JSON** format.
     
     ```
     {
@@ -85,7 +96,7 @@ the contents of these objects are displayed with the help of loggers.
           body
         }
         
-        commitComments(first: 7) {
+        commitComments(first: $num_comments) {
           nodes{
             author{
               login
@@ -102,18 +113,19 @@ the contents of these objects are displayed with the help of loggers.
      }
   ```
     
-- We define an input through another **json** structure such as below :
+- We define an input through another **JSON** structure such as below for the inputs :
     
-    ```
+ ```
     {
       "owner_name": "uber",
-      "repository_name": "react-vis"
+      "repository_name": "react-vis",
+      "num_comments" : 7
     }
-    ```
+```
     
 - And finally the response :
     
-    ```
+ ```
     {
       "data": {
         "repository": {
@@ -164,31 +176,36 @@ the contents of these objects are displayed with the help of loggers.
         }
       }
     }
-    ```
+```
 ### Design patterns used
 
 #### Abstract factory pattern : 
 
-This particular design pattern is used to create instances of the `Viewer` and `Repository` classes which
+- This particular design pattern is used to create instances of the `Viewer` and `Repository` classes which
 are a slicing of the GitHub's schema. The `Datafactory` class which implements the `AbstractFactory` creates
 instances of an implementation of the `Data` - `Viewer` and `Repository` being examples of it.
+- This design pattern was chosen at it provides a clean way to create instances of classes.
+- What I thought was with the hierarchies, we can have an infinite number of abstract factories such as the `AbstractViewer` or
+`AbstractRepository`. The fact that these can be defined infinitely is a con. The class hierarchy would be a bit too cumbersome to come up with.
 
 #### Observer pattern :
 
-This particular design pattern is used by the `QueryLogger` class which is the observer on the subject which is 
+- This particular design pattern is used by the `QueryLogger` class which is the observer on the subject which is 
 the `QueryExecutor`. Each time a query execution is about to run, `QueryLogger` class observes the subject and 
 logs a message. 
-
+- This design pattern was chosen as it helps to keep track of the executed queries.
+- In case of multiple subjects executing at the same time, there could be a race condition in the case say we want to report the
+time these subjects started executing. To achieve synchronization in logging would be a challenge with this design pattern.
 #### Facade pattern :
 
-Here the `GraphQLClientRunner` class behaves as a facade to the `GraphQLClient` class which consists of the 
+- Here the `GraphQLClientRunner` class behaves as a facade to the `GraphQLClient` class which consists of the 
 deeper details as far as the execution of the application is concerned be it execution of queries or 
 printing response data information.
-
+- This design pattern hides the deeper implementation details from the end user such as how queries are executed and the response is deserialized.
+- In order to hide the implementation details from the end user we may end up coupling concerns unrelated to each other.
 ### CPU and RAM usage information
 
-For this purpose, the JProfiler tool was used which produced results as shown below :
-
+- At different points of the execution, the JProfiler took was used to record key performance indicators snapshots were taken such as below.
 
 - Memory
 

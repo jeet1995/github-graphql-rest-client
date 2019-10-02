@@ -8,6 +8,11 @@ import com.typesafe.scalalogging.LazyLogging
 
 import scala.collection.mutable.ListBuffer
 
+
+/**
+  * This class is the one which is the engine for the application. Runs a query passed and prints response data.
+  * */
+
 class GithubGraphQLClient extends LazyLogging {
 
   val queryLogger = new QueryLogger

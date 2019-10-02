@@ -1,5 +1,9 @@
 package com.graphql.client.models
 
+/**
+  * This class constitutes the Repository schema of GitHub
+  * */
+
 case class Repository(createdAt: String, forkCount: Int, codeOfConduct: CodeOfConduct, commitComments: CommitCommentConnection, owner: RepositoryOwner) extends Data {
 
   def getCreatedAt = createdAt
