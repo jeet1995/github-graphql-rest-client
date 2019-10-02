@@ -72,7 +72,7 @@ the contents of these objects are displayed with the help of loggers.
     
 - This is the response which is returned in **JSON** format.
     
- ```
+```
     {
       "data": {
         "viewer": {
@@ -82,13 +82,13 @@ the contents of these objects are displayed with the help of loggers.
       }
     }
 ```
-#### Repository
 
+#### Repository
 
 - Here we fetch **Repository** information based on the **Owner** along with fetching **Commit** related information.
     
  ```
-    query($owner_name: String!, $repository_name: String!){
+    query($owner_name: String!, $repository_name: String!){```
     	repository(owner: $owner_name, name: $repository_name){
         forkCount
         createdAt
@@ -123,6 +123,7 @@ the contents of these objects are displayed with the help of loggers.
     }
 ```
     
+
 - And finally the response :
     
  ```
