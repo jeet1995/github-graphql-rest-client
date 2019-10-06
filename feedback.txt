@@ -1,0 +1,15 @@
+Hi Abhijeet,
+thank you for your submission. Here are my comments and the grade.
+
+1. Very nice documentation and well-commented code.
+2. You used advanced scala features including parameterized types and self types for trait mixins. Well done!
+3. Code lint does not find any major problems, only very minor warnings about type annotations.
+4. Design patterns are tested and used in the implementation. Well done!
+5. You use proper levels of abstraction in your design and your code is pure functional and it is cleanly written.
+6. In QueryExecutor, using ??? for null will trigger runtime exception. While this hw does not require handling this, it is not a good practice to leave code like this in your submission.
+7. You used external tools to measure resource consumptions. Well done.
+
+You completed the baseline and all bonus requirements. You got 10%.
+
+Thank you,
+Mark & Aditya
